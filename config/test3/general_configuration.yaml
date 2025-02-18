@@ -1,0 +1,29 @@
+lidar:
+  lidar_topic: /livox/lidar  # Livox Avia의 기본 LiDAR 토픽
+  frame_id: livox_frame  # LiDAR의 좌표계 프레임 (Livox 기본 값 사용)
+
+camera:
+  image_topic: /zed/zed_node/rgb/image_rect_color  # ZED 2.0i 기본 이미지 토픽
+  projected_topic: /zed/zed_node/rgb/projected_image  # LiDAR 포인트를 투영한 이미지 (새로 설정)
+  image_size:
+    width: 1280  # ZED 2.0i 기본 해상도 (HD720: 1280x720, VGA: 672x376)
+    height: 720
+  frame_id: zed_camera_link  # ZED 2.0i의 기본 프레임 ID
+
+chessboard:
+  pattern_size:
+    rows: 6
+    columns: 5
+  square_size_meters: 0.0245  # (체스보드 크기에 맞게 수정 필요)
+
+general:
+  config_folder: /home/junhyuk/ros2_ws/src/ros2_camera_lidar_fusion/config
+  data_folder: /home/junhyuk/ros2_ws/src/ros2_camera_lidar_fusion/data
+  correspondence_file: ros2_camera_lidar_fusion_correspondences.txt
+  camera_intrinsic_calibration: camera_intrinsic_calibration.yaml
+  camera_extrinsic_calibration: camera_extrinsic_calibration.yaml
+  slop: 0.1
+  max_file_saved: 10
+  keyboard_listener: True
+  get_intrinsics: True
+  get_extrinsics: True
