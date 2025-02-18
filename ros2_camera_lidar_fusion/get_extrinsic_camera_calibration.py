@@ -25,10 +25,10 @@ class CameraLidarExtrinsicNode(Node):
 
         # ✅ 설정 파일에서 각 파일 경로 로드
         self.corr_file = config_file['general']['correspondence_file']  # 2D-3D 대응점 데이터 파일
-        self.corr_file = f'/home/junhyuk/ros2_ws/src/ros2_camera_lidar_fusion/data/{self.corr_file}'  # 전체 경로 구성
+        self.corr_file = f'/home/junhyuk/ros2_ws/src/ROS2_CAMERA_LIDAR_FUSION/data/{self.corr_file}'  # 전체 경로 구성
 
         self.camera_yaml = config_file['general']['camera_intrinsic_calibration']  # 카메라 내부 파라미터 파일
-        self.camera_yaml = f'/home/junhyuk/ros2_ws/src/ros2_camera_lidar_fusion/config/{self.camera_yaml}'  # 전체 경로 구성
+        self.camera_yaml = f'/home/junhyuk/ros2_ws/src/ROS2_CAMERA_LIDAR_FUSION/config/{self.camera_yaml}'  # 전체 경로 구성
 
         self.output_dir = config_file['general']['config_folder']  # Extrinsic 매트릭스를 저장할 폴더
         self.file = config_file['general']['camera_extrinsic_calibration']  # 저장할 Extrinsic 매트릭스 파일 이름

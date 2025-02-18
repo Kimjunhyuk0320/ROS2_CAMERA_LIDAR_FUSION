@@ -79,7 +79,7 @@ class CameraCalibrationNode(Node):
 
             # ✅ 실시간 화면 표시 (체스보드 감지 여부와 관계없이 항상 표시)
             cv2.imshow("ZED Camera View", cv_image)
-            cv2.waitKey(1)  # 1ms마다 업데이트 (프레임 유지)
+            cv2.waitKey(10)  # 1ms마다 업데이트 (프레임 유지)
         except Exception as e:
             self.get_logger().error(f"❌ 이미지 처리 중 오류 발생: {e}")
 

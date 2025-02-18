@@ -6,15 +6,15 @@ camera:
   image_topic: /zed/zed_node/rgb/image_rect_color  # ZED 2.0i 기본 이미지 토픽
   projected_topic: /zed/zed_node/rgb/projected_image  # LiDAR 포인트를 투영한 이미지 (새로 설정)
   image_size:
-    width: 1280  # ZED 2.0i 기본 해상도 (HD720: 1280x720, VGA: 672x376)
-    height: 720
+    width: 640  # ZED 2.0i 기본 해상도 (HD720: 1280x720, VGA: 672x376)
+    height: 360
   frame_id: zed_camera_link  # ZED 2.0i의 기본 프레임 ID
 
 chessboard:
   pattern_size:
-    rows: 8
-    columns: 6
-  square_size_meters: 0.0245  # (체스보드 크기에 맞게 수정 필요)
+    rows: 5
+    columns: 4
+  square_size_meters: 0.049
 
 general:
   config_folder: /home/junhyuk/ros2_ws/src/ROS2_CAMERA_LIDAR_FUSION/config

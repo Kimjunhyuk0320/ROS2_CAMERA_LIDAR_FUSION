@@ -123,8 +123,9 @@ class LidarCameraProjectionNode(Node):
         self.bridge = CvBridge()
         self.skip_rate = 1  # ✅ LiDAR 포인트 샘플링 비율
 
+
     def sync_callback(self, image_msg: Image, lidar_msg: PointCloud2):
-        """📌 LiDAR → 카메라 프레임 변환 후 이미지에 투영"""
+        """📌 LiDAR → 카메라 프레임 변환 후 이미지에 투영 (거리 기반 색상 적용)"""
 
         cv_image = self.bridge.imgmsg_to_cv2(image_msg, desired_encoding='bgr8')
 
@@ -144,16 +145,28 @@ class LidarCameraProjectionNode(Node):
             self.get_logger().info("No points in front of camera (z>0).")
             return
 
+        # ✅ LiDAR 포인트의 거리 계산 (유클리드 거리)
+        distances = np.linalg.norm(xyz_cam_front, axis=1)  # 각 포인트의 거리 계산
+
+        # ✅ 거리 범위 설정
+        min_dist = np.min(distances)
+        max_dist = np.max(distances)
+
         # ✅ OpenCV projectPoints()로 3D → 2D 변환
         image_points, _ = cv2.projectPoints(xyz_cam_front, np.zeros((3,1)), np.zeros((3,1)), self.camera_matrix, self.dist_coeffs)
         image_points = image_points.reshape(-1, 2).astype(np.int32)
 
-        # ✅ 투영된 점을 이미지에 그리기
-        for (u, v) in image_points:
+        # ✅ 투영된 점을 거리 기반으로 색상을 다르게 그리기
+        for i, (u, v) in enumerate(image_points):
             if 0 <= u < cv_image.shape[1] and 0 <= v < cv_image.shape[0]:
-                cv2.circle(cv_image, (u, v), 2, (0, 255, 0), -1)
+                # ✅ 거리를 0~255 범위로 정규화
+                depth_ratio = (distances[i] - min_dist) / (max_dist - min_dist)
+                color = (int(255 * (1 - depth_ratio)), int(255 * depth_ratio), 0)  # 빨강~파랑 그라데이션
+
+                cv2.circle(cv_image, (u, v), 2, color, -1)
 
         self.pub_image.publish(self.bridge.cv2_to_imgmsg(cv_image, encoding='bgr8'))
+
 
 
 # ✅ ROS2 노드 실행
