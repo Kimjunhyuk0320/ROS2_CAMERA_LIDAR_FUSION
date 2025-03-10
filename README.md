@@ -65,40 +65,55 @@
 
 ## 4. 설치 및 실행 방법
 
-### 1️⃣ **필수 패키지 설치**
+### 1. **필수 패키지 설치**
 ```bash
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y python3-pip python3-opencv ros-humble-desktop
 pip install numpy pyyaml open3d
 ```
 
-### 2️⃣ **ROS2 환경 설정**
+### 2️. **ROS2 환경 설정**
 ```bash
 source /opt/ros/humble/setup.bash
 mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/src
-git clone https://github.com/사용자이름/ros2_camera_lidar_fusion.git
+git clone https://github.com/Kimjunhyuk0320/ROS2_CAMERA_LIDAR_FUSION.git
 cd ~/ros2_ws && colcon build
 source install/setup.bash
 ```
 
-### 3️⃣ **Livox Avia LiDAR 실행**
+### 3️. **Livox Avia LiDAR 실행**
 ```bash
 cd ~/ros2_ws/src/ros2_camera_lidar_fusion
 source install/setup.bash
 ros2 launch livox_ros2_driver livox_lidar_launch.py
 ```
 
-### 4️⃣ **ZED 2.0i 카메라 실행**
+### 4️. **ZED 2.0i 카메라 실행**
 ```bash
 ros2 launch zed_wrapper zed_camera.launch.py camera_model:=zed2i
 ```
 
-### 5️⃣ **LiDAR-카메라 캘리브레이션 수행**
+### 5️. **카메라 내부 캘리브레이션 수행**
+```bash
+ros2 run ros2_camera_lidar_fusion get_intrinsic_camera_calibration.py
+```
+
+### 6. **LiDAR-카메라 센서 데이터 수집**
+```bash
+ros2 run ros2_camera_lidar_fusion save_sensor_data.py
+```
+
+### 7. **특징점 추출**
+```bash
+ros2 run ros2_camera_lidar_fusion extract_points.py
+```
+
+### 8. **LiDAR-카메라 외부 캘리브레이션 수행**
 ```bash
 ros2 run ros2_camera_lidar_fusion get_extrinsic_camera_calibration.py
 ```
 
-### 6️⃣ **센서 융합 실행 (LiDAR 데이터 카메라에 투영)**
+### 9. **센서 융합 실행 (LiDAR 데이터 카메라에 투영)**
 ```bash
 ros2 run ros2_camera_lidar_fusion lidar_camera_projection.py
 ```
