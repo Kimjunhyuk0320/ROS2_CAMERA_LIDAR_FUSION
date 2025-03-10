@@ -123,7 +123,7 @@ ros2 run ros2_camera_lidar_fusion lidar_camera_projection.py
 ## 5. 프로젝트 결과 및 성능 평가
 ### 📊 **실험 결과**
 ![설명 텍스트](img\실험사진.jpg )
-![설명 텍스트](img\암 상부 2.8m.jpg)
+![설명 텍스트](img\실험환경.jpg)
 ![설명 텍스트](img\data.png )
 ![설명 텍스트](img\image01.png)
 ![설명 텍스트](img\image02.png)
